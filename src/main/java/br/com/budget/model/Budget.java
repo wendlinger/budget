@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
@@ -23,14 +24,18 @@ public class Budget {
 	private Long id;
 	
 	@NotNull
+	@NotBlank
 	private	float totalAmount;
 	
 	@NotNull
+	@NotBlank
 	private float spentAmount;
 	
 	@NotNull
+	@NotBlank
 	private EnumFolder possibleDestinations;
 	
 	@NotNull
+	@NotBlank
 	private EnumFolder origin; 
 }
