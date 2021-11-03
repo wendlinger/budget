@@ -3,13 +3,11 @@ package br.com.budget.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,14 +44,32 @@ public class BudgetsController {
 		return ResponseEntity.ok(budgetService.findAll());
 	}
 
-	@PatchMapping("{id}/expense")
-	public ResponseEntity<Budget> update(@PathVariable Long id, @RequestBody Budget budget)
+	@PutMapping("{id}/expense")
+	public ResponseEntity<Budget> updateExpenseValue(@PathVariable Long id, @RequestBody Budget budget)
 			throws ResourceNotFoundException, BusinessException {
 		if (!budgetService.BudgetExistById(id)) {
-			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-			throw new ResourceNotFoundException("User not found on: " + id);
+			throw new ResourceNotFoundException("Budget not found on: " + id);
 		} else {
 			return ResponseEntity.ok(budgetService.updateExpense(budget, id));
 		}
 	}
+
+	@GetMapping("{id}/has-available-resource")
+	public boolean hasAvailableResource(@PathVariable Long id,
+			@RequestParam(value = "value", required = false) float value) throws ResourceNotFoundException {
+		if (!budgetService.BudgetExistById(id)) {
+			throw new ResourceNotFoundException("Budget not found on: " + id);
+		} else {
+			return budgetService.hasAvailableResource(id, value);
+		}
+	}
+
+	@GetMapping("has-available-resource-by-possible-destinations")
+	public ResponseEntity<Budget> findByPossibleDestinationsWithAvailableResource(
+			@RequestParam(value = "possibleDestinations") EnumFolder possibleDestinations,
+			@RequestParam(value = "cost") Float cost) {
+		
+		return ResponseEntity.ok(budgetService.findByPossibleDestinationsWithAvailableResource(possibleDestinations, cost));
+	}
+
 }

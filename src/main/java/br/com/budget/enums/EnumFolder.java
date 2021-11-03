@@ -2,15 +2,15 @@ package br.com.budget.enums;
 
 public enum EnumFolder {
 
-	FEDERAL(0), STATE(1), COUNTY(2);
-	
-	private int value;
-	
-	private EnumFolder(int value) {
-        this.value = value;
-    }
+	HEALTH(0), EDUCATION(1), SPORTS(2), INFRASTRUCTURE(3);
 
-    public int getValue() {
-        return value;
-    }
+	private int value;
+
+	private EnumFolder(int value) {
+		this.value = value;
+	}
+
+	public int getValue() {
+		return value;
+	}
 }

@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
 import br.com.budget.enums.EnumFolder;
+import br.com.budget.enums.EnumOrigin;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,18 +24,14 @@ public class Budget {
 	private Long id;
 	
 	@NotNull
-	@NotBlank
 	private	float totalAmount;
 	
-	@NotNull
-	@NotBlank
+	@NotNull   
 	private float spentAmount;
 	
 	@NotNull
-	@NotBlank
 	private EnumFolder possibleDestinations;
 	
 	@NotNull
-	@NotBlank
-	private EnumFolder origin; 
+	private EnumOrigin origin; 
 }
